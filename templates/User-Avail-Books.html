@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width">
+    <title>Data Table</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style-all.css">
+</head>
+<body>
+    <div class="body" style="background-image: url('{{ url_for('static', path='img/database.jpg') }}')"></div>
+    <div class="table-title">
+        <h3>Library</h3>
+        <a href="/logged_in"><button type="submit">My Panel</button></a>
+        <br><br>
+    </div>
+    <table class="table-fill">
+        <thead>
+            <tr>
+                <th class="text-left">Name</th>
+                <th class="text-left">Author</th>
+                <th class="text-left">Availability</th>
+                <th class="text-left">Section</th>
+            </tr>
+        </thead>
+        <tbody class="table-hover">
+            {% for book in books %}
+            <tr>
+                {% if book.quantity == 0 %}
+                <td class="text-left" bgcolor="#ff8080">{{ book.name }}</td>
+                <td class="text-left">{{ book.author }}</td>
+                <td class="text-left" style="background-color:#ff8080">Not Available</td>
+                <td class="text-left">{{ book.section }}</td>
+                {% else %}
+                <td class="text-left">{{ book.name }}</td>
+                <td class="text-left">{{ book.author }}</td>
+                <td class="text-left">Available</td>
+                <td class="text-left">{{ book.section }}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="spacer"></div>
+    <div class="footer">
+        <div class="name">
+            <div>Copyright &copy; <span>Raja</span></div>
+        </div>
+    </div>
+</body>
+</html>

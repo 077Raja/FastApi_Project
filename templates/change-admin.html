@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+    <title>Library Management-Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style-admin-change.css">
+</head>
+<body>
+    <div class="body" style="background-image: url({{ url_for('static', path='img/main-bg.jpg') }})"></div>
+    <div class="grad"></div>
+    <div class="header">
+        <div>Change <span>Admin</span></div>
+    </div>
+    <br>
+    <div class="admin-change"> <!-- Corrected class name here -->
+        <form action="/change_admin" id="admin-change" method="post">
+            <input type="text" placeholder="New Username" name="username"><br><br>
+            <input type="password" placeholder="Old Password" name="prev_pass"><br><br>
+            <input type="password" placeholder="New Password" name="new_pass"><br><br>
+            <input type="password" placeholder="Repeat Password" name="rep_new_pass"><br><br>
+            <button type="submit" form="admin-change">Change Admin</button>
+        </form>
+    </div>
+    <div class="footer">
+        <div class="name">
+            <div>Copyright &copy; <span>Raja</span></div>
+        </div>
+    </div>
+</body>
+</html>

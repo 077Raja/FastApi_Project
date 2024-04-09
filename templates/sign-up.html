@@ -1,0 +1,32 @@
+<!doctype html>
+        <html>
+        <head>
+            <title>Library Management - Sign Up</title>
+            <link rel="stylesheet" type="text/css" href="/static/css/style-sign-up.css">
+
+        </head>
+        <body>
+            <div class="body" style="background-image: url({{ url_for('static', path='img/main-bg.jpg') }})"></div>
+            <div class="grad"></div>
+            <div class="header">
+                <div>Student<span>Sign Up</span></div>
+            </div>
+            <br>
+            <div class="sign-up">
+                <form action="/signed_up" id="sign-up" method="post">
+                        <input type="text" placeholder="Full Name" name="Name"><br><br>
+                        <input type="text" placeholder="Username" name="username"><br><br>
+                        <input type="password" placeholder="Password" name="password"><br>
+                        <input type="password" placeholder="Repeat Password" name="Repeat Password"><br>
+                        <input type="text" placeholder="Phone No." name="Number"><br><br>
+                        <input type="text" placeholder="E-Mail" name="Email"><br>
+                        <button type="submit" form="sign-up" value="Submit">Sign Up</button>
+                    </form>
+            </div>
+            <div class="footer">
+                <div class="name">
+                    <div>Copyright &copy; <span>Raja</span></div>
+                </div>
+            </div>
+        </body>
+        </html>

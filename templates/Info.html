@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Management-Login</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style-login.css">
+</head>
+<body>
+    <div class="body"></div>
+    <div class="grad"></div>
+    <div class="header">
+        <div>Site<span>Random</span></div>
+    </div>
+    <br>
+    <div class="login">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Address</th>
+                    <th>Pin</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in users %}
+                <tr>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.username }}</td>
+                    <td>{{ student.password }}</td>
+                    <td>{{ student.number }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="footer">
+        <div class="name">
+            <div>Copyright &copy; <span>Raja</span></div>
+        </div>
+    </div>
+</body>
+<script src="/static/js/prefixfree.min.js"></script>
+<script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+</html>

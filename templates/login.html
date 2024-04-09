@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <title>Library Management-Login</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/style-login.css">
+</head>
+<body>
+	<div class="body" style="background-image: url({{ url_for('static', path='img/login.jpg') }})"></div>
+
+    <div class="grad"></div>
+    <div class="header">
+        <div>Site<span>Random</span></div>
+    </div>
+    <br>
+    <div class="login">
+        <form action="/logged_in" id="login" method="post">
+            <input type="text" placeholder="username" name="user"><br>
+            <input type="password" placeholder="password" name="password"><br>
+        </form>
+        <button type="submit" form="login" value="Submit">Login</button>
+        <a href="/signup"><button type="submit">Sign Up</button></a>
+    </div>
+    <div class="footer">
+        <div class="name">
+            <div>Copyright &copy; <span>Raja</span></div>
+        </div>
+    </div>
+</body>
+<script src="/static/js/prefixfree.min.js"></script>
+<script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width">
+  <title>Data Table</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/style-all.css">
+</head>
+<body>
+  <div class="body" style="background-image: url('/static/img/database.jpg')"></div>
+
+  <div class="table-title">
+    <h3>Issued Books</h3>
+    <a href="/logged_in"><button type="submit">My Panel</button></a>
+    <br><br>
+  </div>
+  <table class="table-fill">
+    <thead>
+      <tr>
+        <th class="text-left">Name</th>
+        <th class="text-left">Author</th>
+        <th class="text-left">Issued On</th>
+        <th class="text-left">To Be Returned On</th>
+      </tr>
+    </thead>
+    <tbody class="table-hover">
+      {% for book, details in books.items() %}
+      <tr>
+        <td class="text-left">{{ book }}</td>
+        <td class="text-left">{{ details.author }}</td>
+        <td class="text-left">{{ details.issued_on }}</td>
+        <td class="text-left">{{ details.to_be_returned }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="spacer"></div>
+  <div class="footer">
+    <div class="name">
+      <div>Copyright &copy; <span>Raja</span></div>
+    </div>
+  </div>
+</body>
+</html>

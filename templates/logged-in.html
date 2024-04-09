@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Library Management - Login</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/style-logged-in.css">
+</head>
+<body>
+  <div class="body" style="background-image: url('/static/img/logged-in-bg.jpg')"></div>
+  <div class="header">
+    {% if not time %}
+    <div>My <span>Panel</span></div>
+    {% else %}
+    <div>Welcome <span>{{ user.name }}</span></div>
+    {% endif %}
+  </div>
+  <br>
+  <div class="login">
+    <form action="/search_user" id="search" method="post">
+      <input type="text" placeholder="Search For Book" name="search"><br>
+      <br><br>
+      <button type="submit" form="search" value="Submit">Search</button>
+    </form>
+    <br><br>
+    <a href="/all_books_users"><button type="button">Show All Books</button></a>
+    <a href="/issued_books_user"><button type="button">Issued Books</button></a>
+    <a href="/change_user"><button type="button">Change Password</button></a>
+    <a href="/user_logout"><button type="button">Log Out</button></a>
+    <!--<a href=""><button type="button">Delete DataBase</button></a>-->
+  </div>
+  <div class="footer">
+    <div class="name">
+      <div>Copyright &copy; <span>Raja</span></div>
+    </div>
+  </div>
+</body>
+</html>
