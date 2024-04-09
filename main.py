@@ -12,6 +12,17 @@ from pydantic import BaseModel, Field
 from bson.errors import InvalidId
 from requests import session
 from starlette.middleware.sessions import SessionMiddleware
+import os
+
+port = os.getenv('PORT')
+
+if port is None:
+    port = 8000 
+
+port = int(port)
+
+print("The port number is:", port)
+
 
 dburl = "mongodb+srv://raja:thakur@cluster0.i8xo5zs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 # dburl = "mongodb://localhost:27017/library"
@@ -65,7 +76,6 @@ class User(BaseModel):
 class Admin(BaseModel):
     username: str
     password: str
-
 
 
 @app.post("/signed_up", response_class=HTMLResponse)
@@ -409,5 +419,4 @@ async def delete_user(user_id: str = Path(...)):
 
 if __name__ == '__main__':
     import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=port)
