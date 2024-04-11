@@ -24,8 +24,8 @@ port = int(port)
 print("The port number is:", port)
 
 
-dburl = "mongodb+srv://raja:thakur@cluster0.i8xo5zs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-# dburl = "mongodb://localhost:27017/library"
+# dburl = "mongodb+srv://raja:thakur@cluster0.i8xo5zs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+dburl = "mongodb://localhost:27017/library"
 client = MongoClient(dburl)
 db = client["library"]
 books_collection = db["books"]
@@ -33,7 +33,6 @@ users_collection = db["users"]
 admins_collection = db["admins"]
 
 app = FastAPI()
-
 
 app.add_middleware(SessionMiddleware, secret_key="secret_key")
 
@@ -78,6 +77,15 @@ class Admin(BaseModel):
     password: str
 
 
+@app.get("/")
+async def home(req:Request):
+    return templates.TemplateResponse(name="home.html", context={"request":req})
+
+
+@app.get("/signup", response_class=HTMLResponse)
+async def signup(request: Request):
+    return templates.TemplateResponse("sign-up.html", {"request": request})
+
 @app.post("/signed_up", response_class=HTMLResponse)
 async def signed_up(request: Request, name: str = Form(...), user: str = Form(...), 
                     password: str = Form(...), rep_password: str = Form(...), 
@@ -108,9 +116,11 @@ async def signed_up(request: Request, name: str = Form(...), user: str = Form(..
         "books": []
     }
     users_collection.insert_one(new_user)
-
-   
     return templates.TemplateResponse("logged-in.html", {"user": new_user, "time": "first", "request": request})
+
+@app.get("/login", response_class=HTMLResponse)
+async def login(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
 
 @app.post("/logged_in", response_class=HTMLResponse)
 async def logged_in(request: Request, user: str = Form(...), password: str = Form(...)):
@@ -127,6 +137,10 @@ async def logged_in(request: Request, user: str = Form(...), password: str = For
         request.session['user'] = user_data["username"]
         return templates.TemplateResponse("logged-in.html", {"user": user_data["username"], "time": "first", "request": request})
 
+
+@app.get("/logout", response_class=HTMLResponse)
+async def logout(request: Request):
+    return templates.TemplateResponse("home.html", {"request": request})
 
 
 @app.post("/admin/login", response_class=HTMLResponse)
@@ -302,7 +316,7 @@ async def issue_book(request: Request, username: str, serialno: int) -> HTMLResp
         {"$push": {"books": serialno}}
     )
 
-    return templates.TemplateResponse({"request": request, "message": "Book Successfully Issued"})
+    return templates.TemplateResponse("issue-books.html", {"request": request, "message": "Book Successfully Issued"})
 
 @app.get("/books/by_serial/{serialno}", response_model=Book)
 async def get_book_by_serial(serialno: int):
@@ -416,6 +430,28 @@ async def delete_user(user_id: str = Path(...)):
     delete_result = users_collection.delete_one({"_id": user_object_id})
     if delete_result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="User not found")
+
+@app.get("/change_user", response_class=HTMLResponse)
+async def logout(request: Request):
+    return templates.TemplateResponse("change-user.html", {"request": request})
+
+
+@app.put("/change_password", response_class=HTMLResponse)
+async def change_password(request: Request, username: str = Form(...), 
+                          old_password: str = Form(...), new_password: str = Form(...)):
+    if not (username and old_password and new_password):
+        raise HTTPException(status_code=400, detail="Please fill all the fields")
+
+    user_data = users_collection.find_one({"username": username, "password": old_password})
+    if not user_data:
+        raise HTTPException(status_code=400, detail="Invalid credentials")
+
+    # Update the user's password
+    users_collection.update_one(
+        {"username": username},
+        {"$set": {"password": new_password}}
+    )
+    return templates.TemplateResponse("login.html", {"request": request, "message": "Password changed successfully"})
 
 if __name__ == '__main__':
     import uvicorn
