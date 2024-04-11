@@ -24,8 +24,8 @@ port = int(port)
 print("The port number is:", port)
 
 
-# dburl = "mongodb+srv://raja:thakur@cluster0.i8xo5zs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-dburl = "mongodb://localhost:27017/library"
+dburl = "mongodb+srv://raja:thakur@cluster0.i8xo5zs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+# dburl = "mongodb://localhost:27017/library"
 client = MongoClient(dburl)
 db = client["library"]
 books_collection = db["books"]
